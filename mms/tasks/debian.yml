@@ -1,0 +1,16 @@
+---
+- name: Debian | Set mms_loaded_os_family
+  set_fact:
+    mms_loaded_os_family: "{{ ansible_os_family }}"
+
+- name: Download MMS-Agent
+  shell: >
+        curl -o /var/tmp/{{ mms_agent_file }} -OL {{ mms_agent_url }}
+  register: mms_reinstall
+
+- name: Install MMS-Agnet
+  shell: >
+    dpkg -i /var/tmp/mongodb-mms-backup-agent_{{ mms_agent_version }}_amd64.deb
+    executable=/bin/bash
+  when: mms_reinstall.changed
+

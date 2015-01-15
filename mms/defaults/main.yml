@@ -1,0 +1,6 @@
+---
+mms_agent_version: "3.0.0.246-1"
+mms_agent_file: "mongodb-mms-backup-agent_{{ mms_agent_version }}_amd64.deb"
+mms_agent_url: "https://mms.mongodb.com/download/agent/backup/{{ mms_agent_file }}"
+mms_mothership_server: api-backup.mongodb.com
+mms_https_enable: true

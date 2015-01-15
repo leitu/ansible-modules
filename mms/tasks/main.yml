@@ -1,0 +1,36 @@
+---
+- name: Check for mms_api_key`
+  fail:
+    msg: "mms_api_key has not been defined"
+  when: mms_api_key|default(False) == False
+
+- include: debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include: default.yml
+  when: mms_loaded_os_family|default(False) == False
+
+- name: Configure MMS-Agent
+  template:
+    src: backup-agent.config.j2
+    dest: /etc/mongodb-mms/backup-agent.config
+    group: mongodb-mms-agent
+    owner: mongodb-mms-agent
+    mode: 0600
+
+- name: Configure MMS-Agent upstart
+  template:
+    src: upstart.conf.j2
+    dest: /etc/init/mongodb-mms-backup-agent.conf
+    group: root
+    owner: root
+    mode: 0600
+  notify:
+    - Restart MMS-Agent
+  when: mms_loaded_os_family|default(False) != False
+
+- name: Ensure MMS-Agent is started and enabled
+  service:
+    name: mongodb-mms-backup-agent
+    state: started
+    enabled: yes

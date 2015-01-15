@@ -1,0 +1,6 @@
+---
+- name: Restart MMS-Agent
+  sudo: true
+  service:
+    name: mongodb-mms-backup-agent
+    state: restarted

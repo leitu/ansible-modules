@@ -1,0 +1,12 @@
+# mongodb-mms-backup-agent package
+
+description "MongoDB MMS Backup Agent"
+
+start on (filesystem and net-device-up IFACE=lo)
+stop on runlevel [!2345]
+
+setuid mongodb-mms-agent
+setgid mongodb-mms-agent
+
+exec ./usr/bin/mongodb-mms-backup-agent -c /etc/mongodb-mms/backup-agent.config \
+    >> /var/log/mongodb-mms/backup-agent.log 2>&1
