@@ -1,0 +1,15 @@
+---
+xen_display_name: fedora20
+xen_storage_name: Local storage
+xen_template_create_from_name: CentOS 6 (64-bit)
+xen_vcpus_max: 1
+xen_vcpus_startup: 1
+xen_memory_dmax: 1
+xen_memory_smax: 1
+xen_memory_dmin: 1
+xen_memory_smin: 1
+xen_install_repo: http://10.18.2.179/fedora/20/os
+xen_install_ks: http://10.18.2.179/fedora/ks/f20.ks
+xen_bridge: xenbr0
+xen_tools_iso: xs-tools.iso
+
