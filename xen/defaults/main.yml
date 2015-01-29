@@ -1,5 +1,5 @@
 ---
-xen_display_name: fedora20
+xen_display_name: Image-fedora20
 xen_storage_name: Local storage
 xen_template_create_from_name: CentOS 6 (64-bit)
 xen_vcpus_max: 1

@@ -65,10 +65,10 @@ create_template() {
   VDIUUID=`xe vbd-param-get uuid=${VBDUUID} param-name=vdi-uuid --minimal`
   xe vdi-param-set uuid=${VDIUUID} name-label=${VML} name-description="create by cli"
 
-  DOMAINID=`list_domains | grep ${VMUUID} | awk '{ print $1}'`
-  CODE=`xenstore-read /local/domain/${DOMAINID}/attr/Customs/Kickstart`
-  while true
+ while true
   do
+    DOMAINID=`list_domains | grep ${VMUUID} | awk '{ print $1}'`
+    CODE=`xenstore-read /local/domain/${DOMAINID}/attr/Customs/Kickstart`
     if [ "$CODE" == "0" ]; then
       SPUUID=`xe vm-snapshot name-label=${VML}  new-name-label=Image-${VML}_${DATE} new-name-description=Image-${VML}`
       xe snapshot-copy uuid=${SPUUID} new-name-label=Image-${VML}
@@ -80,6 +80,11 @@ create_template() {
   done
 }
 
+stop_template() {
+  xe vm-shutdown force=true vm=${VML}
+  xe vm-param-set uuid=${VDIUUID} name-label=${VML}-Live
+}
+
 create_vm
-sleep 600
+sleep 300
 create_template
