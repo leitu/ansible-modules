@@ -1,7 +1,0 @@
-#!/bin/bash
-VML={{ xen_display_name }}
-DATE=`date +%Y%m%d_%H%M`
-
-SPUUID=`xe vm-snapshot name-label=${VML}  new-name-label=Image-${VML}_${DATE} new-name-description=Image-${VML}`
-
-xe snapshot-copy uuid=${SPUUID} new-name-label=Image-${VML}
